@@ -13,7 +13,7 @@ export default class TeachersController {
       if (mode === "page") {
         data = await Teacher
           .query()
-          .preload('employee', query => { query.select('id', 'name') })
+          .preload('employee', query => { query.select('id', 'name', 'nip').whereILike('name', `%${keyword}%`)})
           .paginate(page, limit)
       } else if (mode === "list") {
         data = await Teacher
@@ -78,7 +78,7 @@ export default class TeachersController {
 
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params
-    if (!uuidValidation(id)) { return response.badRequest({ message: "Subject ID tidak valid" }) }
+    if (!uuidValidation(id)) { return response.badRequest({ message: "Teacher ID tidak valid" }) }
 
     try {
       const data = await Teacher.findOrFail(id)
