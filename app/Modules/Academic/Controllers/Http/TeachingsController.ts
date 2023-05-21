@@ -17,9 +17,10 @@ export default class TeachingsController {
                 .preload('class', c => c.select('id', 'name'))
                 .preload('subject', s => s.select('id', 'name'))
                 .where('teacher_id', '=', teacher_id)
+                .firstOrFail()
             response.ok({ message: "Berhasil mengambil data", data })
         } catch (error) {
-            const message = "ACTH22: " + error.message || error
+            const message = "ACTH23: " + error.message || error
             console.log(error);
             response.badRequest({
                 message: "Gagal mengambil data",
@@ -36,7 +37,7 @@ export default class TeachingsController {
             const data = await Teaching.create(payload)
             response.created({ message: "Berhasil menyimpan data", data })
         } catch (error) {
-            const message = "ACTH39: " + error.message || error
+            const message = "ACTH40: " + error.message || error
             // console.log(error);
             response.badRequest({
                 message: "Gagal menyimpan data",
@@ -60,7 +61,7 @@ export default class TeachingsController {
             const data = await teaching.merge(payload).save()
             response.ok({ message: "Berhasil mengubah data", data })
         } catch (error) {
-            const message = "ACTH63: " + error.message || error
+            const message = "ACTH64: " + error.message || error
             console.log(error);
             response.badRequest({
                 message: "Gagal mengubah data",
@@ -79,7 +80,7 @@ export default class TeachingsController {
             await data.delete()
             response.ok({ message: "Berhasil menghapus data" })
         } catch (error) {
-            const message = "ACSU82: " + error.message || error
+            const message = "ACSU83: " + error.message || error
             console.log(error);
             response.badRequest({
                 message: "Gagal menghapus data",
