@@ -70,7 +70,7 @@ export default class DailyAttendancesController {
           data = await DailyAttendance
             .query()
             .select('*')
-            .where('class_id', `%${classId}%`)
+            .where('class_id', `${classId}`)
             .whereBetween('date_in', [formattedStartDate, formattedEndDate])
             .whereHas('student', s => s.whereILike('name', `%${keyword}%`))
             .preload('student', s => s.select('name'))
